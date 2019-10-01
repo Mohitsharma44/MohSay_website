@@ -1,0 +1,133 @@
+/* Main vars */
+/* Button vars */
+/* Close icon */
+/* Transition vars */
+/* Social color */
+/* Input */
+/* Mixins */
+/*.inp1-center {
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}*/
+.no-center {
+  transform: translateX(0) translateY(0);
+}
+/* Fonts */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Montserrat Regular'), local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v14/JTUSjIg1_i6t8kCHKm459Wlhzg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Montserrat Bold'), local('Montserrat-Bold'), url(https://fonts.gstatic.com/s/montserrat/v14/JTURjIg1_i6t8kCHKm45_dJE3gnD-w.ttf) format('truetype');
+}
+body {
+  background-color: #e7edf5;
+  font-family: "Montserrat";
+}
+.share-btn {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 100px;
+  width: 200px;
+  height: 72px;
+  box-shadow: 0 5px 10px rgba(0, 0, 40, 0.03);
+  transition: all 0.4s cubic-bezier(0.3, 0, 0, 1.3);
+  overflow: hidden;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.share-btn .cta {
+  position: absolute;
+  color: #f5ce67;
+  text-transform: uppercase;
+  font-size: 22px;
+  letter-spacing: 1px;
+  transition: all 0.25s ease-in-out;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.share-btn .close {
+  position: absolute;
+  right: 38px;
+  top: 31px;
+  cursor: pointer;
+  color: #cfd2d9;
+  font-size: 20px;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.3, 0, 0, 1.3);
+  transform: rotate(-45deg);
+  transform-origin: center center;
+}
+.share-btn .social {
+  width: 70%;
+  padding-left: 0;
+  list-style-type: none;
+  margin: 75px auto 0 auto;
+}
+.share-btn .social span {
+  float: center;
+}
+.share-btn .social li {
+  padding-bottom: 15px;
+  transform: scale(0.7) translateX(10px) translateY(-10px);
+  transition: all 0.25s ease-in-out;
+  transform-origin: 0% 0%;
+  opacity: 0;
+}
+.share-btn .social li:nth-child(1) {
+  color: #3b5998;
+}
+.share-btn .social li:nth-child(2) {
+  color: #55acee;
+}
+.share-btn .social li:nth-child(3) {
+  color: #d34836;
+}
+.share-btn .fake-input {
+  width: 60%;
+  margin: 10px auto 0 auto;
+  background-color: #f3f6fb;
+  color: #b2b5bc;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 15px;
+  overflow: hidden;
+}
+.clicked {
+  width: 260px;
+  height: 200px;
+  border-radius: 50px;
+  cursor: auto;
+}
+.share-btn.clicked .cta {
+  left: 40px;
+  top: 30px;
+  transform: translateX(0) translateY(0);
+  color: #cfd2d9;
+}
+.share-btn.clicked .close {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+.share-btn.clicked .social li {
+  transform: scale(1) translateX(0) translateY(0);
+  opacity: 1;
+}
+.share-btn.clicked .social li:nth-child(1) {
+  transition-delay: 0.05s;
+}
+.share-btn.clicked .social li:nth-child(2) {
+  transition-delay: 0.1s;
+}
+.share-btn.clicked .social li:nth-child(3) {
+  transition-delay: 0.15s;
+}
