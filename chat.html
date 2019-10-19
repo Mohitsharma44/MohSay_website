@@ -1,0 +1,100 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <title>BotUI - Hello World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css" />
+    </head>
+    <body>
+    <div class="botui-app-container" id="hello-world">
+    <bot-ui></bot-ui>
+    </div>
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/botui/build/botui.js"></script>
+    <script>
+    var botui = new BotUI('hello-world');
+    // Get username from cookie if exists. Jinja template!!
+    var username = "Mohit";
+    var greetUser = function () {
+        botui.message.add({
+            delay: 500,
+            loading: true,
+            content: 'Hi ' + username + ', how can I help you?'
+        })
+    }
+    var askQuestion = function() {
+        botui.action.text({
+            delay: 500,
+            action: {
+                placeholder: 'type your question'
+            }
+        }).then(function (querry) {
+            // Make call to the server with query
+            response = 'Response'
+            botui.message.bot({
+                delay: 1000,
+                loading: true,
+                content: response
+            }).then(function () {
+                askUser();
+            })
+        });
+    }
+    var askUser = function() {
+        botui.action.button({
+            delay: 500,
+            loading: true,
+            addMessage: false,
+            action: [{
+                text: 'I have a question',
+                value: 'yes'
+            }, {
+                text: 'Nothing',
+                value: 'no'
+            }]
+        }).then(function (moreQuestion) {
+            if(moreQuestion.value == 'yes') {
+                askQuestion();
+            } else {
+                botui.message.human({
+                    content: 'Nothing'
+                })
+                return botui.message.bot({
+                    delay: 500,
+                    loading: true,
+                    content: 'Alrighty, Amigo! !(hand-peace-o)'  
+                })
+            }
+        })
+    }
+    if(username == "") {
+        botui.message.add({
+            human: false,
+            delay: 500,
+            loading: true,
+            content: 'Whats your name?'
+        }).then(function () {
+            return botui.action.text({
+                delay: 500,
+                action: {
+                    placeholder: 'Your name'
+                }
+            });
+        }).then(function (name) {
+            username = name.value;
+            // botui's `then` is non blocking so we have to call
+            // askQuestion inside the if conditional (if
+            // username doesn't exist) and also in else case
+            greetUser();
+            askUser();
+        });
+    }
+    else {
+        greetUser();
+        askUser();
+    }
+    </script>
+    </body>
+    </html>
