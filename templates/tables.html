@@ -1,0 +1,188 @@
+<html>
+  <head>
+    <link href="https://unpkg.com/tabulator-tables@4.4.3/dist/css/tabulator.min.css" rel="stylesheet">
+    <link href="../css/tabulator_bootstrap4.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="table-controls-legend">Download Controls</div>
+    <div class="table-controls">
+      <button id="download-csv">Download CSV</button>
+      <button id="download-json">Download JSON</button>
+      <button id="download-xlsx">Download XLSX</button>
+      <button id="download-pdf">Download PDF</button>
+    </div>
+    <input type="text" id="filter"/>
+    <div id="tabulator-example"></div>
+    <script type="text/javascript" src="../js/jquery-3.0.0.js"></script>
+    <!-- For exporting json data to xlsx format -->
+    <script type="text/javascript" src="http://oss.sheetjs.com/js-xlsx/xlsx.full.min.js"></script>
+    <!-- For allowing export to PDF-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.0.5/jspdf.plugin.autotable.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.4.3/dist/js/tabulator.min.js"></script>
+    <script>
+      var tabledata = [];
+
+      //generate line chart
+      // var lineFormatter = function(cell, formatterParams, onRendered){
+      //          onRendered(function(){
+      // $(cell.getElement()).sparkline(cell.getValue(), {width:"100px", type:"line", disableTooltips:true});
+      //     });
+      // };
+
+      var table = new Tabulator("#tabulator-example", {
+          ajaxConfig: {
+              dataType: 'json',
+              method: 'GET',
+              crossDomain: true,
+              headers: {
+                  "Content-type": 'application/json; charset=utf-8',
+              },
+          },
+          ajaxContentType:"json",
+          ajaxURL: "http://192.168.10.114:8080/update_record/",
+          ajaxResponse: function(url, params, response){
+              console.log("----Got something");
+              //return JSON.parse('[{"foo": "bar"}]')
+              return response.data;
+              /*
+              var tabledata = [];
+              response.data.rows.forEach(function(row){
+                  var rowData = {}; //create row data object
+                  row.data.forEach(function(value, index){
+                      //assign value to column
+                      rowData[response.columns[index].id] = value;
+                      console.log('processing');
+                      //return response.data;
+                  });
+                  //add row to table
+                  tabledata.push(rowData);
+              });
+              //return correctly formatted table data to tabulator
+              return tabledata;*/
+          },
+          height:317,
+          //data:tabledata,
+          placeholder:"Placeholder Data",
+          layout:"fitColumns",
+          groupBy: "gender",
+          responsiveLayout:"hide",
+          tooltips:true,
+          addRowPos:"top",
+          history:true,
+          pagination:"local",
+          paginationSize:7,
+          movableColumns:true,
+          resizableRows:true,
+          initialSort:[
+              {column:"name", dir:"asc"},
+          ],
+          columns:[
+              {title: "Id", field: "id", minWidth:20},
+              {title:"Name", field:"name", editor:"input", minWidth:80},
+              //{title:"Task Progress", field:"progress", minWidth:80, Height:2, align:"left", formatter:"progress", editor:true},
+              {title:"Gender", field:"gender", width:95, editor:"select", editorParams:{values:["male", "female"]}},
+              {title:"Rating", field:"rating", formatter:"star", align:"center", width:100, editor:true},
+              {title:"Color", field:"col", width:130, editor:"input"},
+              {title:"Date Of Birth", field:"dob", width:130, sorter:"date", align:"center"},
+              {title:"Driver", field:"car", width:90,  align:"center", formatter:"tickCross", sorter:"boolean", editor:true},
+          ],
+          cellEdited: function(cell) {
+              var datax  = cell.getData();
+              var fields = cell.getField();
+              console.log("This data was changed: " + JSON.stringify(datax));
+              console.log("Fields modified: " + fields);
+              $.ajax({
+                  type: "POST",
+                  url: "http://192.168.10.114:8080/update_record/",
+                  data: JSON.stringify(datax),
+                  success: function(response){
+                      alert("Succeeded in sending data to backend server: " + JSON.stringify(response));
+                  },
+                  error: function(response){
+                      alert("Error sending data to backend server: " + JSON.stringify(response));
+                  }
+              });
+          }
+      });
+
+      // var ajaxConfig = {
+      //     method:"get", //set request type to Position
+      //     dataType: 'string',
+      //     crossDomain: true,
+      //     headers: {
+      //         "Content-type": 'application/json; charset=utf-8',
+      //     },
+      // };
+      //table.setData("http://192.168.10.114:8080/uuuuupdate_record/", {}, ajaxConfig);
+
+      $("#tabulator-controls input[name=name]").on("keyup", function(){
+          table.setFilter( "name", "like", $(this).val())
+      });
+
+      $("#tabulator-controls  button[name=hide-col]").on("click", function(){
+          $(this).toggleClass("col-hide");
+
+          if($(this).hasClass("col-hide")){
+              table.showColumn("rating");
+          }else{
+              table.hideColumn("rating");
+          }
+      });
+
+      $("#tabulator-controls button[name=undo]").on("click", function(){
+          table.undo();
+      });
+
+      $("#tabulator-controls  button[name=add-row]").on("click", function(){
+          table.addRow({});
+      });
+
+      /*$("#tabulator-controls  button[name=download]").on("click", function(){
+       table.download("csv", "Tabulator Example Download.csv");
+       });*/
+
+      //trigger download of data.csv file
+      $("#download-csv").click(function(){
+          table.download("csv", "data.csv");
+      });
+
+      //trigger download of data.json file
+      $("#download-json").click(function(){
+          table.download("json", "data.json");
+      });
+
+      //trigger download of data.xlsx file
+      $("#download-xlsx").click(function(){
+          table.download("xlsx", "data.xlsx", {sheetName:"My Data"});
+      });
+
+      //trigger download of data.pdf file
+      $("#download-pdf").click(function(){
+          table.download("pdf", "data.pdf", {
+              orientation:"portrait", //set page orientation to portrait
+              title:"Example Report", //add title to report
+          });
+      });
+
+      // Filtering data instantly
+      var input = document.getElementById("filter");
+
+      input.addEventListener("keyup", function(){
+          var filters = [];
+          var columns = table.getColumns();
+          var search = input.value;
+
+          columns.forEach(function(column){
+              filters.push({
+                  field:column.getField(),
+                  type:"like",
+                  value:search,
+              });
+          });
+
+          table.setFilter([filters]);
+      });
+    </script>
+  </body>
+</html>
