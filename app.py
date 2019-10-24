@@ -12,7 +12,25 @@ from tornado.options import define, options, parse_command_line
 
 define("port", default=8080, help="run on the given port", type=int)
 
-class DBHandler(tornado.web.RequestHandler):
+class BaseHandler(tornado.web.RequestHandler):
+
+    def get_current_user(self):
+        return self.get_secure_cookie("username")
+
+
+class DashHandler(BaseHandler):
+
+    @tornado.gen.coroutine
+    def get(self):
+        log.info("Got get request")
+        self.render('index.html')
+
+    @tornado.gen.coroutine
+    def post(self):
+        log.warn("I shouldn't be getting post requests")
+
+class DBHandler(BaseHandler):
+    
     def set_default_headers(self):
         log.info("setting headers!!!")
         self.set_header("Access-Control-Allow-Origin", "*")
@@ -30,11 +48,6 @@ class DBHandler(tornado.web.RequestHandler):
             #data = fh.readlines()
             data = json.load(fh)
         self.write('{{"data": {}}}'.format(json.dumps(data)))
-        # self.write('{{"data": {}}}'.format([x.strip().strip(',') for x in data]))
-        #self.write('{{"data": [{},{}]}}'.format(data[0].strip().strip(','),
-        #                                        data[1].strip().strip(',')))
-        #self.write('[{}]'.format(json.dumps(data[0].strip().strip(','))))
-        #self.write('[{"id":"99", "name":"Oli Bob", "progress":12, "gender":"male", "rating":1, "col":"red", "dob":"19/02/1984", "car":1, "lucky_no":5, "activity":[1, 20, 5, 3, 10, 13, 17, 15, 9, 11, 10, 12, 14, 16, 13, 9, 7, 11, 10, 13]}]')
         self.finish()
 
     @tornado.gen.coroutine
@@ -55,6 +68,7 @@ class Application(tornado.web.Application):
             "xsrf_cookies": False,
         }
         tornado.web.Application.__init__(self, [
+            tornado.web.url(r'/dashboard/.*', DashHandler, name="dashhandler"),
             tornado.web.url(r'/update_record/.*', DBHandler, name="dbhandler"),
         ], **settings)
 
