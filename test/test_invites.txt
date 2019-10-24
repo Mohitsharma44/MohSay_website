@@ -1,4 +1,4 @@
-{"id":1, "name":"Oli Bob", "progress":12, "gender":"male", "rating":1, "col":"red", "dob":"19/02/1984", "car":1, "lucky_no":5, "activity":[1, 20, 5, 3, 10, 13, 17, 15, 9, 11, 10, 12, 14, 16, 13, 9, 7, 11, 10, 13]},
+[{"id":1, "name":"Oli Bob", "progress":12, "gender":"male", "rating":1, "col":"red", "dob":"19/02/1984", "car":1, "lucky_no":5, "activity":[1, 20, 5, 3, 10, 13, 17, 15, 9, 11, 10, 12, 14, 16, 13, 9, 7, 11, 10, 13]},
 {"id":2, "name":"Mary May", "progress":1, "gender":"female", "rating":2, "col":"blue", "dob":"14/05/1982", "car":true, "lucky_no":10, "activity":[10, 12, 14, 16, 13, 9, 7, 11, 10, 13, 1, 2, 5, 4, 1, 16, 4, 2, 1, 3]},
 {"id":3, "name":"Christine Lobowski", "progress":42, "gender":"female", "rating":0, "col":"green", "dob":"22/05/1982", "car":"true", "lucky_no":12, "activity":[1, 2, 5, 4, 1, 16, 4, 2, 1, 3, 3, 7, 9, 1, 4, 8, 2, 6, 4, 2]},
 {"id":4, "name":"Brendon Philips", "progress":100, "gender":"male", "rating":1, "col":"orange", "dob":"01/08/1980", "lucky_no":18, "activity":[3, 7, 9, 1, 4, 8, 2, 6, 4, 2, 1, 3, 1, 3, 3, 1, 1, 3, 1, 3]},
@@ -16,4 +16,4 @@
 {"id":16, "name":"Paul Branderson", "progress":60, "gender":"male", "rating":5, "col":"orange", "dob":"01/01/1982", "activity":[1, 3, 1, 3, 3, 1, 11, 15, 19, 20, 17, 16, 16, 5, 3, 2, 1, 3, 1, 3]},
 {"id":18, "name":"Emma Netwon", "progress":40, "gender":"female", "rating":4, "col":"brown", "dob":"07/10/1963", "car":true, "activity":[3, 7, 9, 1, 4, 8, 3, 7, 9, 1, 4, 8, 2, 6, 4, 2, 2, 6, 4, 2]},
 {"id":19, "name":"Hannah Farnsworth", "progress":30, "gender":"female", "rating":1, "col":"pink", "dob":"11/02/1991", "activity":[1, 2, 5, 4, 1, 16, 10, 12, 14, 16, 13, 9, 7, 11, 10, 13, 4, 2, 1, 3]},
-{"id":20, "name":"Victoria Bath", "progress":20, "gender":"female", "rating":2, "col":"purple", "dob":"22/03/1986", "activity":[10, 12, 14, 16, 13, 9, 7, 1, 2, 3, 4, 5, 4, 2, 5, 9, 8, 11, 10, 13]}
+{"id":20, "name":"Victoria Bath", "progress":20, "gender":"female", "rating":2, "col":"purple", "dob":"22/03/1986", "activity":[10, 12, 14, 16, 13, 9, 7, 1, 2, 3, 4, 5, 4, 2, 5, 9, 8, 11, 10, 13]}]

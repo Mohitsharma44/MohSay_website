@@ -26,10 +26,13 @@ class DBHandler(tornado.web.RequestHandler):
 
     @tornado.gen.coroutine
     def get(self):
-        with open("../test/test_invites.txt", 'r') as fh:
-            data = fh.readlines()
-        self.write('{{"data": [{},{}]}}'.format(data[0].strip().strip(','),
-                                                data[1].strip().strip(',')))
+        with open("test/test_invites.txt", 'r') as fh:
+            #data = fh.readlines()
+            data = json.load(fh)
+        self.write('{{"data": {}}}'.format(json.dumps(data)))
+        # self.write('{{"data": {}}}'.format([x.strip().strip(',') for x in data]))
+        #self.write('{{"data": [{},{}]}}'.format(data[0].strip().strip(','),
+        #                                        data[1].strip().strip(',')))
         #self.write('[{}]'.format(json.dumps(data[0].strip().strip(','))))
         #self.write('[{"id":"99", "name":"Oli Bob", "progress":12, "gender":"male", "rating":1, "col":"red", "dob":"19/02/1984", "car":1, "lucky_no":5, "activity":[1, 20, 5, 3, 10, 13, 17, 15, 9, 11, 10, 12, 14, 16, 13, 9, 7, 11, 10, 13]}]')
         self.finish()
