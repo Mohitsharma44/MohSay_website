@@ -10996,3 +10996,58 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    display: inline-block;
+    padding: .5rem 1rem;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.gallery {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.gallery-filter {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 1rem 0;
+}
+.gallery-filter a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+}
+.gallery-filter .active a {
+    border-bottom: 1px solid currentColor;
+}
+.gallery-list {
+    list-style: none;
+    margin: -5px;
+    padding: 0px;
+}
+.gallery-item {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+.gallery-item a {
+    display: initial;
+    padding: 0rem;
+}
+.gallery-item img {
+    display: block;
+}
