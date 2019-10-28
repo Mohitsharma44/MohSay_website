@@ -11014,6 +11014,9 @@ img {
 }
 
 .gallery {
+    //position: relative;
+    //max-height: 500px;
+    //overflow-y: scroll;
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
@@ -11024,7 +11027,7 @@ img {
     flex-wrap: wrap;
     list-style: none;
     margin: 0 0 1rem;
-    padding: 1rem 0;
+    //padding: 1rem 0;
 }
 .gallery-filter a {
     display: inline-block;
@@ -11035,6 +11038,7 @@ img {
     border-bottom: 1px solid currentColor;
 }
 .gallery-list {
+    max-height: 500px;
     list-style: none;
     margin: -5px;
     padding: 0px;
