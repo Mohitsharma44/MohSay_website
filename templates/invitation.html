@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Pageable - Infinite Scrolling</title>
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="{{ static_url('vendor/pageable/css/infinite.css') }}">
+  </head>
+  <body>
+    <main>
+      <section data-anchor="page 1">
+        <div class="container">
+          <img src="{{ static_url('images/invitations/test/high/invite.png') }}" height="100%">
+          <div class="centered"><h1>Mr Bhukkad    &</br>family</h1></div>
+        </div>
+      </section>
+      <section data-anchor="page 2">
+        <div class="container">
+          <img src="{{ static_url('images/invitations/test/high/first.png') }}" height="100%">
+        </div>
+      </section>
+      <section data-anchor="page 3">
+        <div class="container">
+          <img src="{{ static_url('images/invitations/test/high/second.png') }}" height="100%">
+        </div>
+      </section>
+      <section data-anchor="page 4">
+        <div class="container">
+          <img src="{{ static_url('images/invitations/test/high/cat1.png') }}" height="100%">
+        </div>
+      </section>
+    </main>
+    <script src="https://unpkg.com/pageable@latest/dist/pageable.min.js"></script>
+    <script src="{{ static_url('vendor/pageable/js/infinite.js') }}"></script>
+    <script>
+      function requestFullScreen(element) {
+          // Supports most browsers and their versions.
+          var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+          if (requestMethod) { // Native full screen.
+              requestMethod.call(element);
+          } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+              var wscript = new ActiveXObject("WScript.Shell");
+              if (wscript !== null) {
+                  wscript.SendKeys("{F11}");
+              }
+          }
+      }
+
+      var elem = document.body; // Make the body go full screen.
+      requestFullScreen(elem);
+    </script>
+  </body>
+</html>
